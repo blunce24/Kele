@@ -1,4 +1,5 @@
 require 'httparty'
+require 'json'
 
 class Kele
   include HTTParty
@@ -12,10 +13,17 @@ class Kele
 
     if response && response["auth_token"]
       @auth_token = response["auth_token"]
-      puts "#{email} is sucessfully in with auth_token #{@auth_token}"
+      puts "#{email} has sucessfully logged in"
     else
       puts "Login invalid"
     end
+  end
+
+  def get_me
+    response = Kele.get("#{@base_url}/users/me",
+      headers: { "authorization" => @auth_token }
+    )
+    @user_info = JSON.parse(response.body)
   end
 
 end
