@@ -26,4 +26,11 @@ class Kele
     @user_info = JSON.parse(response.body)
   end
 
+  def get_mentor_availability(mentor_id)
+    response = Kele.get("#{@base_url}/mentors/#{mentor_id}/student_availability",
+      headers: { "authorization" => @auth_token }
+    )
+    @mentor_availability = JSON.parse(response.body)
+  end
+
 end
