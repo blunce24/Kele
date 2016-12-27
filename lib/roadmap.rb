@@ -9,6 +9,7 @@ module Roadmap
       headers: { "authorization" => @auth_token }
     )
     @roadmap = JSON.parse(response.body)
+    { message: 'authorized', status: 200 }
   end
 
   def get_checkpoint(checkpoint_id)
@@ -16,6 +17,7 @@ module Roadmap
       headers: { "authorization" => @auth_token }
     )
     @checkpoint = JSON.parse(response.body)
+    { message: 'authorized', status: 200 }
   end
 
   def create_submission(checkpoint_id, assignment_branch, assignment_commit_link, comment)
@@ -27,8 +29,10 @@ module Roadmap
     )
     if response["status"] == "submitted"
       puts "Submission has sucessfully sent"
+      { message: 'authorized', status: 200 }
     else
       puts "Submission failed to send"
+      { message: 'unauthorized', status: 404 }
     end
   end
 

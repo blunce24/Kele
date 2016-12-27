@@ -15,6 +15,7 @@ module Messages
       )
     end
     @messages = JSON.parse(response.body)
+    { message: 'authorized', status: 200 }
   end
 
   def create_message(sender, recipient_id, token, subject, body)
